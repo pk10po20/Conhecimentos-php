@@ -14,12 +14,17 @@ function incluidoNoPlano(bool $planoPrime, int $anoLancamento): bool {
     return $planoPrime || $anoLancamento < 2020;
 }
 
-function criaFilme(string $nome, int $anoLancamento, float $nota, string $genero): array
+function criaFilme(string $nome, int $anoLancamento, float $nota, string $genero): Filme // Precisa me retornar um filme
 {
-    return [
-        'nome' => $nome,
-        'ano' => $anoLancamento,
-        'nota' => $nota,
-        'genero' => $genero
-    ];
+    $filme = new Filme(); // Cria uma variável do tipo "Filme"
+
+    $filme -> nome = $nome; 
+    $filme -> anoLancamento = $anoLancamento;
+    $filme -> nota = $nota;
+    $filme -> genero = $genero;
+
+    // Buscando da variável filme, o argumento "nome" e transformando-o em uma variável.
+    // Para acessar o nome do filme, falando de uma variavél que é criada a partir de uma classe, é necessário utiizar "->".
+
+    return $filme;
 }

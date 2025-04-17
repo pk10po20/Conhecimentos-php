@@ -1,61 +1,33 @@
-<?php
+<?php 
 
-require __DIR__ . "/src/funcoes.php";
+// Incluindo os arquivos a onde esta sendo executado.
+require __DIR__ . "/src/Modelo/Genero.php";
+require __DIR__ . "/src/Modelo/Filme.php";
 
-echo "Bem-vindo(a) ao screen match!\n";
+echo "Bem vindo(a) ao Screen Match\n";
 
-$nomeFilme = "Top Gun - Maverick";
-
-$anoLancamento = 2022;
-
-$quantidadeDeNotas = $argc - 1;
-$notas = [];
-
-for ($contador = 1; $contador < $argc; $contador++) {
-    $notas[] = (float) $argv[$contador];
-}
-
-$notaFilme = array_sum($notas) / $quantidadeDeNotas;
-$planoPrime = true;
-
-$incluidoNoPlano = incluidoNoPlano($planoPrime, $anoLancamento);
-
-echo "Nome do filme: " . $nomeFilme . "\n";
-echo "Nota do filme: $notaFilme\n";
-echo "Ano de lançamento: $anoLancamento\n";
-
-exibeMensagemLancamento($anoLancamento);
-
-$genero = match ($nomeFilme) {
-    "Top Gun - Maverick" => "ação",
-    "Thor: Ragnarok" => "super-herói",
-    "Se beber não case" => "comédia",
-    default => "gênero desconhecido",
-};
-
-echo "O gênero do filme é: $genero\n";
-
-$filme = criaFilme(
-    nota: 7.8,
-    genero: "super-herói",
-    ano: 2021,
-    nome: "Thor: Ragnarok",
+// Chama automáticamente o método "__construct" para criar um novo objeto.
+$filme = new Filme(
+    'Thor',
+    2021,
+    Genero::SuperHeroi,
+    120,
 );
 
-echo $filme["ano"];
+$filme->avalia(0);
+$filme->avalia(0);
+$filme->avalia(3);
+$filme->avalia(10);
 
-var_dump($notas);
-sort($notas);
-var_dump($notas);
-$menorNota = min($notas);
-var_dump($menorNota);
+var_dump($filme);
 
-var_dump($filme['nome']);
-$posicaoDoisPontos = strpos($filme['nome'], ':');
-var_dump($posicaoDoisPontos);
+if($filme->bom()) {
+    echo "Este é um bom filme!";
+}
+else {
+    echo "Este filme é muito ruim!";
+}
 
-var_dump(substr($filme['nome'], 0, $posicaoDoisPontos));
-
-$filmeComoStringJson = json_encode($filme);
-file_put_contents(__DIR__ . '/filme.json', $filmeComoStringJson);
-
+echo "\nA média de notas desse filme é:" . $filme->media() . "\n" ;
+echo "O ano de lancamento do filme '" . $filme->nome() . "' é: " . $filme->anoLancamento();
+echo "\nO filme possue '" . $filme->duracaoEmMinutos() . "' minutos de duração.";
